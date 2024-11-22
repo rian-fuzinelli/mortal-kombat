@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mortal Kombat</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            margin: 0;
+            padding: 0;
+            background-image: url('img/background.jpg');
+            background-size: 100vw 100vh;
+            background-repeat: no-repeat;
+        }
+
+        .fighter-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        .fighter {
+            position: absolute;
+            width: 295px;
+            height: 280px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .johnny { top: 170px; left: 160px; }
+        .kano { top: 170px; left: 485px; }
+        .subzero { top: 170px; left: 1140px; }
+        .cassie { top: 170px; left: 1470px; }
+        .raiden { top: 480px; left: 485px; }
+        .liukang { top: 480px; left: 812px; }
+        .scorpion { top: 480px; left: 1140px; }
+
+        .fighter:hover {
+            opacity: 0.8;
+            transform: scale(1.1);
+        }
+
+        .fighter-description {
+            display: none; /* Inicialmente oculto */
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 20px;
+            background: linear-gradient(45deg, #555555, #888888); 
+            border: 3px solid #666666;
+            border-radius: 5px;
+            box-shadow: 0 0 15px #888888, 0 0 30px #666666;
+            color: #ffdd44; 
+            font-family: 'Press Start 2P', cursive;
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            width: 50%;
+            z-index: 1000;
+            text-align: center;
+            animation: fire-glow 2s infinite alternate;
+            text-shadow: 2px 2px 5px #000000, 0 0 10px #888888;
+        }
+
+        @keyframes fire-glow {
+            0% {
+                box-shadow: 0 0 15px #555555, 0 0 25px #666666;
+            }
+            100% {
+                box-shadow: 0 0 30px #555555, 0 0 50px #666666;
+            }
+        }
+
+        @keyframes blink-effect {
+            0% {
+                box-shadow: 0 0 20px #00ffcc, 0 0 40px #ff007c;
+            }
+            100% {
+                box-shadow: 0 0 40px #00ffcc, 0 0 60px #ff007c;
+            }
+        }
+
+        .fighter-description.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="fighter-container">
+        <img src="img/johnny.jpg" class="fighter johnny" data-fighter="Johnny" alt="Johnny">
+        <img src="img/kano.jpg" class="fighter kano" data-fighter="Kano" alt="Kano">
+        <img src="img/subzero.jpg" class="fighter subzero" data-fighter="Subzero" alt="Sub-zero">
+        <img src="img/cassie.jpg" class="fighter cassie" data-fighter="Cassie" alt="Cassie Cage">
+        <img src="img/raiden.jpg" class="fighter raiden" data-fighter="Raiden" alt="Raiden">
+        <img src="img/liukang.jpg" class="fighter liukang" data-fighter="LiuKang" alt="Liu Kang">
+        <img src="img/scorpion.jpg" class="fighter scorpion" data-fighter="Scorpion" alt="Scorpion">
+    </div>
+
+    <div class="fighter-description" id="fighter-description">
+        <h3>PERSONAGEM</h3>
+        <p id="previsao-texto"></p>
+    </div>
+
+    <script>
+        const FightersCore = {
+            fighters: {
+                Johnny: "Johnny Cage é um ator de Hollywood famoso, conhecido por seus filmes de ação, mas sua imagem pública é de um homem egocêntrico, presunçoso e cheio de confiança.",
+                Kano: "Kano é um vilão brutal e líder da facção criminoso 'Black Dragon', conhecido por seu laser ocular e ataques de força.",
+                Subzero: "Sub-Zero é um mestre das artes marciais com o poder de controlar o gelo, sendo um dos heróis mais icônicos, conhecido por sua habilidade de congelar e destruir seus inimigos.",
+                Cassie: "Cassie Cage é uma lutadora talentosa e filha de Johnny Cage, conhecida por seu estilo de luta ágil e habilidades em combate, além de seu senso de humor e determinação em proteger o mundo.",
+                Raiden: "Raiden é o Deus do Trovão e protetor do Reino da Terra, conhecido por seus poderes elétricos, sabedoria e seu papel como líder da resistência contra as forças do mal.",
+                LiuKang: "Liu Kang é um mestre de kung fu e um dos heróis mais poderosos de Mortal Kombat, conhecido por sua habilidade em fogo e sua determinação em proteger a Terra contra ameaças sobrenaturais.",
+                Scorpion: "Scorpion é um espectro vingativo e mestre de ninjutsu, com o poder do fogo e do inferno, conhecido por sua busca implacável por justiça e sua icônica frase 'Get over here!' em Mortal Kombat",
+            },
+            showfighter(fighter) {
+                const previsaoTexto = document.getElementById("previsao-texto");
+                const fighterContainer = document.getElementById("fighter-description");
+                previsaoTexto.innerText = this.fighters[fighter];
+                fighterContainer.classList.add("active");
+            },
+            start() {
+                const imagens = document.querySelectorAll(".fighter");
+                imagens.forEach(img => {
+                    img.addEventListener("click", () => {
+                        const fighter = img.getAttribute("data-fighter");
+                        this.showfighter(fighter);
+                    });
+                });
+            },
+        };
+
+        FightersCore.start();
+    </script>
+</body>
+</html>
